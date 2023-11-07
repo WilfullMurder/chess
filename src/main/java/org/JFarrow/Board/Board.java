@@ -1,73 +1,66 @@
 package org.JFarrow.Board;
 
-import org.JFarrow.Pieces.*;
+import org.JFarrow.Core.PositionComponent;
+import org.JFarrow.Pieces.Piece;
 
 import java.util.Arrays;
 
 public class Board {
-    Square[][] squares = new Square[8][8];
-    private final int WHITE = 0;
-    private final int BLACK = 1;
+    public static final String BISHOP = "B";
+    public static final String KING = "K";
+    public static final String KNIGHT = "N";
+    public static final String PAWN = "P";
+    public static final String QUEEN = "Q";
+    public static final String ROOK = "R";
+    public static final String PLAYER_1 = "1";
+    public static final String PLAYER_2 = "2";
+    public static final String EMPTY = "-";
+    public static String[][] board = new String[8][8];
+    public static void resetBoard() {
 
-    public Board(){
-        resetBoard();
+        for (String[] strings : board) {
+            Arrays.fill(strings, EMPTY);
+        }
+        setInitialBoardPieces();
     }
 
-    public void resetBoard() {
-        squares[0][0] = new Square(0, 0, new Rook(WHITE));
-        squares[0][1] = new Square(0, 1, new Knight(WHITE));
-        squares[0][2] = new Square(0, 2, new Bishop(WHITE));
-        squares[0][3] = new Square(0, 3, new Queen(WHITE));
-        squares[0][4] = new Square(0, 4, new King(WHITE));
-        squares[0][5] = new Square(0, 2, new Bishop(WHITE));
-        squares[0][6] = new Square(0, 1, new Knight(WHITE));
-        squares[0][7] = new Square(0, 0, new Rook(WHITE));
 
-        for(int cols = 0; cols < squares[1].length; cols++){
-            squares[1][cols] = new Square(1, cols, new Pawn(WHITE));
-            squares[6][cols] = new Square(6, cols, new Pawn(BLACK));
-        }
-        squares[7][0] = new Square(0, 0, new Rook(BLACK));
-        squares[7][1] = new Square(0, 1, new Knight(BLACK));
-        squares[7][2] = new Square(0, 2, new Bishop(BLACK));
-        squares[7][3] = new Square(0, 3, new Queen(BLACK));
-        squares[7][4] = new Square(0, 4, new King(BLACK));
-        squares[7][5] = new Square(0, 2, new Bishop(BLACK));
-        squares[7][6] = new Square(0, 1, new Knight(BLACK));
-        squares[7][7] = new Square(0, 0, new Rook(BLACK));
-
-        for(int rows = 2; rows < 6; rows++){
-            for(int cols = 0; cols < squares[rows].length; cols++){
-                squares[rows][cols] = new Square(rows, cols, null);
+    private static void setInitialBoardPieces() {
+        for(int col = 0; col < board.length; col++){
+            board[1][col] = PAWN + PLAYER_2;
+            board[6][col] = PAWN + PLAYER_1;
+            switch (col) {
+                case 0 -> setPiece(col, ROOK);
+                case 1 -> setPiece(col, KNIGHT);
+                case 2 -> setPiece(col, BISHOP);
             }
         }
+        Board.board[0][3] = QUEEN + PLAYER_2;
+        Board.board[7][3] = QUEEN + PLAYER_1;
+        Board.board[0][4] = KING + PLAYER_2;
+        Board.board[7][4] = KING + PLAYER_1;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-            for(int cols = 0; cols < squares.length; cols++){
-                for(int rows = 0; rows < squares[cols].length; rows++){
-                if(squares[cols][rows].getPiece() == null){
-                    builder.append("null ");
-                }
-                else{
-                    builder.append(squares[cols][rows].getPiece().toString()).append(" ");
-                }
+    private static void setPiece(int col, String piece) {
+        board[0][col] = piece + PLAYER_2;
+        board[0][7-col] = piece + PLAYER_2;
+        board[7][col] = piece + PLAYER_1;
+        board[7][7-col] = piece + PLAYER_1;
+    }
 
-                if(rows == squares[cols].length - 1){
-                    builder.append("\n");
-                }
+
+    public static void display() {
+        System.out.println();
+        for (String[] places : board) {
+            for (String string : places) {
+                System.out.print(string + "\t");
             }
+            System.out.println();
         }
-        return builder.toString();
+        System.out.println("\n\n");
     }
 
-    public Square getSquare(int row, int col) {
-        return squares[row][col];
-    }
-
-    public void setSquare(int row, int col, Piece piece) {
-        squares[row][col] = new Square(row, col, piece);
+    public static boolean isEmpty(PositionComponent position){
+        return board[position.intX()][position.intY()].equals(EMPTY);
     }
 }
