@@ -2,11 +2,20 @@ package org.JFarrow.Pieces;
 
 import org.JFarrow.Board.Board;
 import org.JFarrow.Board.Square;
+import org.JFarrow.Core.PositionComponent;
+
+import java.util.List;
+
 
 public interface Piece {
-    boolean canMove(Board board, Square start, Square end);
-    void setKilled(boolean killed);
-    boolean isKilled();
-    int getColour();
+    List<PositionComponent> getMoves();
+    String getPieceConstant();
+    void doMove(PositionComponent end);
+    void undoMove(String piece);
+    PositionComponent getCurrentPosition();
+    void kill();
+    void revive();
+    boolean isAlive();
+
 
 }

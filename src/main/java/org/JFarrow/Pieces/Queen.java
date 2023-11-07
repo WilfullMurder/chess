@@ -2,21 +2,26 @@ package org.JFarrow.Pieces;
 
 import org.JFarrow.Board.Board;
 import org.JFarrow.Board.Square;
+import org.JFarrow.Controllers.Player;
+import org.JFarrow.Core.PositionComponent;
+
+import java.util.List;
+
+import static org.JFarrow.Board.Board.QUEEN;
 
 public class Queen extends GamePiece{
-    public Queen(int colour) {
-        super(colour);
-        setName("Queen");
+
+    public Queen(PositionComponent currentPosition, Player owner) {
+        super(currentPosition, owner);
     }
 
     @Override
-    public boolean canMove(Board board, Square start, Square end) {
-        if(end.getPiece().getColour() == this.getColour()){
-            return false;
-        }
-        int x = Math.abs(start.getX() - end.getX());
-        int y = Math.abs(start.getY()) - end.getY();
-        return x >= 0 || y >= 0;
-        //check other movement logic
+    public List<PositionComponent> getMoves() {
+        return null;
+    }
+
+    @Override
+    public String getPieceConstant() {
+        return QUEEN;
     }
 }
