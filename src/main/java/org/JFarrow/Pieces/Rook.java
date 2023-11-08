@@ -1,7 +1,5 @@
 package org.JFarrow.Pieces;
 
-import org.JFarrow.Board.Board;
-import org.JFarrow.Board.Square;
 import org.JFarrow.Controllers.Player;
 import org.JFarrow.Core.PositionComponent;
 
@@ -11,7 +9,7 @@ import java.util.List;
 import static org.JFarrow.Board.Board.*;
 
 public class Rook extends GamePiece{
-    boolean hasMoved;
+    private boolean moved;
     public Rook(PositionComponent currentPosition, Player owner) {
         super(currentPosition, owner);
     }
@@ -102,5 +100,9 @@ public class Rook extends GamePiece{
     @Override
     public String getPieceConstant() {
         return ROOK;
+    }
+
+    public boolean hasMoved() {
+        return moved;
     }
 }
