@@ -34,7 +34,7 @@ class PositionComponentTest {
 
     @Test
     void testToString() {
-        String expected = "x: 1.2456, y: 2.75472";
+        String expected = "row: 1.2456, col: 2.75472";
         assertEquals(expected, position.toString());
     }
 }
