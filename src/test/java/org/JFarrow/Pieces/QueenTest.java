@@ -12,10 +12,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class QueenTest {
     Piece queen;
+    Player player;
     @BeforeEach
     void setUp() {
         Board.resetBoard();
-        queen = new Queen(new PositionComponent(7, 4), new Player(PLAYER_1));
+        player = new Player(PLAYER_1);
+        queen = new Queen(new PositionComponent(7, 3), player);
     }
 
     @Test
@@ -25,13 +27,29 @@ class QueenTest {
 
     @Test
     void testMoveAfterPawn() {
-        Piece pawn = new Pawn(new PositionComponent(6, 4), new Player(PLAYER_1));
-        pawn.doMove(new PositionComponent(3, 4));
+        Piece pawn = new Pawn(new PositionComponent(6, 3), player);
+        pawn.doMove(new PositionComponent(3, 3));
         assertTrue(queen.getMoves().size() > 0);
         for(PositionComponent move: queen.getMoves()){
             System.out.println();
             System.out.println(move.toString());
         }
+        Board.display();
+    }
+    @Test
+    void testMoveThroughMultipleOpenings(){
+        Piece pawn1 = new Pawn(new PositionComponent(6, 3), player);
+        pawn1.doMove(new PositionComponent(3, 3));
+        Piece pawn2 = new Pawn(new PositionComponent(6, 4), player);
+        pawn2.doMove(new PositionComponent(3, 4));
+        Piece pawn3 = new Pawn(new PositionComponent(6, 2), player);
+        pawn3.doMove(new PositionComponent(3, 2));
+        assertTrue(queen.getMoves().size() > 0);
+        for(PositionComponent move: queen.getMoves()){
+            System.out.println();
+            System.out.println(move.toString());
+        }
+        Board.display();
     }
 
     @Test

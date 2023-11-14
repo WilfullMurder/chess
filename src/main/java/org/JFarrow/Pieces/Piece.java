@@ -1,7 +1,5 @@
 package org.JFarrow.Pieces;
 
-import org.JFarrow.Board.Board;
-import org.JFarrow.Board.Square;
 import org.JFarrow.Core.PositionComponent;
 
 import java.util.List;

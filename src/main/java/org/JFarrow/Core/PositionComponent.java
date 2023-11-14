@@ -32,7 +32,7 @@ public class PositionComponent {
 
     @Override
     public String toString() {
-        return String.format("x: %s, y: %s", x, y);
+        return String.format("row: %s, col: %s", x, y);
     }
 
     @Override
